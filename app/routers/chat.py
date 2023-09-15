@@ -19,7 +19,7 @@ templates = Jinja2Templates(directory="app/templates")
 router = APIRouter()
 
 
-@router.get("/chat")
+@router.get("/")
 def get_chat_page(request: Request):
     return templates.TemplateResponse("chat.html", {"request": request})
 
