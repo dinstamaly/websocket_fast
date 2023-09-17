@@ -3,10 +3,10 @@ from bson.objectid import ObjectId
 from fastapi import APIRouter, Response, status, Depends, HTTPException
 from fastapi_jwt_auth import AuthJWT
 
-from app import utils, schemas
-from app.config import settings
-from app.database import User
-from app.serializers.userSerializers import userResponseEntity, userEntity
+from .. import utils, schemas
+from ..config import settings
+from ..database import User
+from ..serializers.userSerializers import userResponseEntity, userEntity
 
 router = APIRouter()
 ACCESS_TOKEN_EXPIRES_IN = settings.ACCESS_TOKEN_EXPIRES_IN
@@ -53,9 +53,9 @@ def login(payload: schemas.LoginUserSchema, response: Response, Authorize: AuthJ
         subject=str(user["id"]), expires_time=timedelta(minutes=REFRESH_TOKEN_EXPIRES_IN))
 
     response.set_cookie('access_token', access_token, ACCESS_TOKEN_EXPIRES_IN * 60,
-                        ACCESS_TOKEN_EXPIRES_IN * 60, '/', None, False, True, 'lax')
+                        ACCESS_TOKEN_EXPIRES_IN * 60, '/', None, False, False, 'lax')
     response.set_cookie('refresh_token', refresh_token,
-                        REFRESH_TOKEN_EXPIRES_IN * 60, REFRESH_TOKEN_EXPIRES_IN * 60, '/', None, False, True, 'lax')
+                        REFRESH_TOKEN_EXPIRES_IN * 60, REFRESH_TOKEN_EXPIRES_IN * 60, '/', None, False, False, 'lax')
     response.set_cookie('logged_in', 'True', ACCESS_TOKEN_EXPIRES_IN * 60,
                         ACCESS_TOKEN_EXPIRES_IN * 60, '/', None, False, False, 'lax')
 

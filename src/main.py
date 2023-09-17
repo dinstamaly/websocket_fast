@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from config import settings
-from routers import auth, user, chat
+
+from .config import settings
+from .routers import auth, user, chat
 
 app = FastAPI()
 
